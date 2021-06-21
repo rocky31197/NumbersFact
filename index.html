@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <title>Number Facts</title>
+    <style>
+        #fact {
+            display: none;
+        }
+
+        .bg{
+            background-image: url('bg.jpg');
+            min-height: 110vh;
+            background-size: 100vw 120vh;
+            background-repeat: no-repeat;
+            /* display: flex; */
+            /* justify-content: center; */
+            /* align-items: center; */
+        }
+
+        .card{
+            background-color: #80aaff
+        }
+    </style>
+
+</head>
+
+<body class="bg">
+    <div class="container ">
+        <div class="row">
+            <div class="col-md-6 m-auto">
+                <div class="card text-black mt-5 p-4">
+                    <h1>Number Facts</h1>
+                    <p>Enter Any Number</p>
+                    <input type="number" class="form-control form-control-lg" id="numberIp" placeholder="Enter Any Number">
+                    <div id="fact" class="card-body">
+                        <h4>Number Fact</h4>
+                        <p id="factText" class="card-text"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        let fact = document.querySelector("#fact")
+        let factText = document.querySelector("#factText")
+
+        let numberIp = document.querySelector("#numberIp")
+        numberIp.addEventListener('input', getFact)
+
+        function getFact() {
+            let number = numberIp.value
+
+            if(number!=''){
+
+            let xhr = new XMLHttpRequest()
+            xhr.open('GET', 'http://numbersapi.com/' + number)
+
+            xhr.onload = function(){
+                if(this.status == 200)
+                //console.log(number)
+                fact.style.display = 'block'
+                factText.innerText = this.responseText
+                
+            }
+
+            xhr.send()
+
+            }
+        }
+
+    </script>
+</body>
+
+</html>
